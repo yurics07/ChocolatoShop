@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolato Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- CORREÇÃO: Atributos rel e type do favicon -->
+    <link rel="icon" href="imagens/chocolato.png" type="image/jpeg">
+
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Chocolato Shop</h1>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="sobre/sobre.html">Sobre</a></li>
+                <li><a href="contatos/contato.html">Contato</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon" onclick="toggleCart()">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <!-- Modal de Seleção de Pagamento (CONTEÚDO ADICIONADO) -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content payment-modal-content">
+            <span class="close" onclick="closePaymentModal()">&times;</span>
+            <h2>Escolha a Forma de Pagamento</h2>
+
+            <div id="payment-order-summary">
+                <p>Total do Pedido: <span id="payment-modal-total">R$ 0,00</span></p>
+            </div>
+
+            <div class="payment-options">
+                <button class="payment-option-btn" data-method="credit-card" onclick="selectPaymentMethod(this)">
+                    <!-- Use caminhos corretos para seus ícones -->
+                    <img src="imagens/card_credit.png" alt="Cartão de Crédito">
+                    <span>Cartão de Crédito</span>
+                </button>
+                <button class="payment-option-btn" data-method="pix" onclick="selectPaymentMethod(this)">
+                    <img src="imagens/pix.png" alt="Pix">
+                    <span>Pix</span>
+                </button>
+                <button class="payment-option-btn" data-method="boleto" onclick="selectPaymentMethod(this)">
+                    <img src="imagens/boleto.png" alt="Boleto">
+                    <span>Boleto</span>
+                </button>
+            </div>
+
+            <div id="payment-details-area" style="display: none;">
+                <!-- Conteúdo será preenchido pelo JavaScript -->
+            </div>
+
+            <button id="confirm-payment-btn" style="display: none;">Confirmar Pagamento</button>
+        </div>
+    </div>
+
+    <!-- Carrinho de Compras -->
+    <div id="shopping-cart" class="cart-panel">
+         <h2>Carrinho de Compras</h2>
+         <div id="cart-items"></div>
+         <div class="cart-total">
+             <h3>Total: R$ <span id="cart-total">0,00</span></h3>
+         </div>
+        <div class="cart-actions">
+            <button onclick="closeCart()">Continuar Comprando</button>
+            <button onclick="openPaymentModal()">Ir para Pagamento</button>
+        </div>
+    </div>
+
+    <main>
+        <section class="products">
+            <!-- CORREÇÃO: IDs únicos para cada produto -->
+            <div class="product-card">
+                <img src="imagens/garoto.webp" alt="chocolate-Nestle">
+                <h3>Chocolate Nestle</h3>
+                <p class="price">R$ 12,00</p>
+                <p class="description">Chocolate Nestle chocotrio 90g ao leite.</p>
+                <!-- ID 1 -->
+                <button onclick="openModal(1, 'Chocolate Nestle', 12.00, 'Chocolate Nestle chocotrio 90g ao leite', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQldu0KVBu1kMULpLQQxSZtENDzvwN0fW3UQ&s')">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="product-card">
+                <img src="imagens/docinhos.jpg" alt="kit-docinho">
+                <h3>kit Docinhos</h3>
+                <p class="price">R$ 24,00</p>
+                <!-- CORREÇÃO: Descrição adicionada -->
+                <p class="description">Kit de docinhos sortidos (42 unidades).</p>
+                <!-- ID 2 -->
+                <button onclick="openModal(2, 'Kit docinhos', 24.00, 'Kit de docinhos sortidos (42 unidades).', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtjX8OiWM1Q4UHWE7dX-lpwLr2Hp4PsNcyqMymyuXQ9fo91ggUsHGsCU7lczCRNM5tjrU&usqp=CAU')">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="product-card">
+                <!-- ATENÇÃO: Verifique se o caminho/nome 'imagens/(cap).jpg' está correto -->
+                <img src="imagens/(cap).jpg" alt="Cappuccino">
+                <h3>Cappuccino chocolate</h3>
+                <p class="price">R$ 17,90</p>
+                <p class="description">Cappuccino de chocolate soluvel 3 corações.</p>
+                <!-- ID 3 -->
+                <button onclick="openModal(3, 'Cappuccino chocolate', 17.90, 'Cappuccino de chocolate soluvel 3 corações.', 'imagens/(cap).jpg')">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="product-card">
+                <img src="imagens/churros.jpg" alt="Churros">
+                <h3>Cento Mini Churros</h3>
+                <p class="price">R$ 24,00</p>
+                <p class="description">Cento de mini churros recheados e fritos.</p>
+                <!-- ID 4 -->
+                <button onclick="openModal(4, 'Cento Mini Churros', 24.00, 'Cento de mini churros recheados e fritos.', 'imagens/churros.jpg')">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product-card">
+                <img src="imagens/ovo.jpg" alt="ovo-recheado">
+                <h3>ovo de chocolate</h3>
+                <p class="price">R$49,00</p>
+                <p class="description">ovo de chocolate recheado.</p>
+                <!-- ID 5 -->
+                <button onclick="openModal(5, 'ovo de chocolate', 49.00, 'ovo de chocolate recheado', 'imagens/ovo.jpg')">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="product-card">
+                <img src="imagens/Ovão gourmet.jpg" alt="ovo-gourmet">
+                <h3>Ovo recheado</h3>
+                <p class="price">R$ 88,00</p>
+                <p class="description">Ovo recheado gourmet.</p>
+                <!-- ID 6 -->
+                <button onclick="openModal(6, 'Ovo recheado', 88.00, 'Ovo de chocolate gourmet', 'imagens/Ovão gourmet.jpg')">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="product-card">
+                <img src="imagens/garotoMeioAmargo.jpg" alt="chocolate-garoto">
+                <h3>Chocolate Garoto meio amargo</h3>
+                <p class="price">R$ 14,00</p>
+                <p class="description">Chocolate Garoto 90g com cacau do Brasil.</p>
+                <!-- ID 7 -->
+                <button onclick="openModal(7, 'Chocolate Garoto meio amargo', 14.00, 'Chocolate Garoto meio amargo 90g com cacau do Brasil.', 'imagens/garotoMeioAmargo.jpg')">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="product-card">
+                <img src="imagens/bis_branco.jpg" alt="bis_branco">
+                <h3>Chocolate Garoto</h3>
+                <p class="price">R$ 10,00</p>
+                <p class="description">Chocolate Bis branco 20 unidades.</p>
+                <!-- ID 8 -->
+                <button onclick="openModal(8, 'Bis branco', 10.00, 'Chocolate Bis branco 20 unidades.', 'https://drogariacristal.com/media/catalog/product/cache/dc75f304252411b8c602e1e96d99390d/7/6/7622300807283.png')">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="product-card">
+                <img src="imagens/ferrero_roche.jpg" alt="ferrero_roche">
+                <h3>Ferrero Roche</h3>
+                <p class="price">R$ 28,50</p>
+                <p class="description">Caixa de Ferrero Roche 100g.</p>
+                <!-- ID 9 -->
+                <button onclick="openModal(9, 'Ferrero Roche', 28.50, 'Caixa de Ferrero Roche 100g.', 'https://m.media-amazon.com/images/I/514xC77msbL._AC_UF894,1000_QL80_.jpg')">Adicionar ao Carrinho</button>
+            </div>
+        </section>
+
+       <!-- Modal de quantidade (CONTEÚDO ADICIONADO) -->
+       <div id="quantity-modal" class="modal">
+           <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div class="modal-product-details">
+                    <img id="modal-product-image" src="" alt="Imagem do Produto" class="modal-product-image">
+                    <div class="modal-product-info">
+                        <h2 id="modal-product-name">Nome do Produto</h2>
+                        <p id="modal-product-description">Descrição do produto.</p>
+                        <p>Preço: R$ <span id="modal-product-price">0,00</span></p>
+                    </div>
+                </div>
+                <div class="quantity-selector">
+                    <button onclick="decrementQuantity()">-</button>
+                    <input type="number" id="quantity" value="1" min="1" max="10" readonly>
+                    <button onclick="incrementQuantity()">+</button>
+                </div>
+                <button onclick="addToCart()">Confirmar</button>
+           </div>
+       </div>
+
+       <!-- Modal de Pagamento (Antigo - Comentado) -->
+       <!--
+       <div id="payment-modal-old" class="modal">
+           <div class="modal-content">
+               <span class="close" onclick="closePaymentModal()">&times;</span>
+               <h2>Resumo do Pedido</h2>
+               <div id="payment-items"></div>
+               <div class="payment-total">
+                   <h3>Total: R$ <span id="payment-total">0,00</span></h3>
+               </div>
+               <button onclick="proceedToPayment()">Ir para Pagamento</button>
+           </div>
+       </div>
+       -->
+
+       <div id="toast" class="toast"></div>
+   </main>
+
+   <footer>
+       <p>&copy; 2024 Chocolato Shop. Todos os direitos reservados.</p>
+   </footer>
+
+   <script src="script.js"></script>
+</body>
+</html>
