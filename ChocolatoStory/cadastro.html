@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Chocolato Shop</title>
+    <!-- CORRIGIDO: Caminho para o CSS -->
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- CORRIGIDO: Caminho para o ícone -->
+    <link rel="icon" href="../imagens/chocolato-removebg-preview.png" type="image/png">
+</head>
+<body>
+    <!-- Cabeçalho simples -->
+    <header class="registration-header">
+        <div class="logo">
+            <!-- CORRIGIDO: Caminho para o index.html -->
+            <a href="../index.html" class="logo-link">
+                <h1>Chocolato Shop</h1>
+            </a>
+        </div>
+    </header>
+
+    <main class="registration-main">
+        <div class="registration-container">
+            <h2>Crie sua Conta</h2>
+            <form id="registration-form">
+                <div class="form-group">
+                    <label for="reg-name">Nome Completo:</label>
+                    <input type="text" id="reg-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email:</label>
+                    <input type="email" id="reg-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Senha:</label>
+                    <input type="password" id="reg-password" name="password" required minlength="6">
+                     <small>Mínimo de 6 caracteres.</small>
+                </div>
+                <div class="form-group">
+                    <label for="reg-location">Localização (Cidade/Estado):</label>
+                    <input type="text" id="reg-location" name="location" required>
+                </div>
+                 <div id="registration-error" class="error-message" style="display: none;"></div> <!-- Mensagem de erro -->
+                <button type="submit" id="register-button">Cadastrar</button>
+            </form>
+            <p class="login-link">
+                Já tem uma conta? <a href="../login.html">Faça Login</a> <!-- Link para login -->
+                <br>
+                <!-- CORRIGIDO: Caminho para o index.html -->
+                <a href="../index.html">Voltar para a Loja</a>
+            </p>
+        </div>
+    </main>
+
+     <div id="toast" class="toast"></div> <!-- Reutiliza o toast para mensagens -->
+
+    <footer> <!-- Footer simples -->
+        <p>&copy; 2024 Chocolato Shop. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- CORRIGIDO: Caminho para o script JS -->
+    <script src="../script.js"></script>
+</body>
+</html>
